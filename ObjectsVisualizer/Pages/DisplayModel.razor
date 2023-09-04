@@ -1,0 +1,81 @@
+﻿@page "/viewmodel"
+
+
+<h3>DisplayModel</h3>
+
+<div class="row justify-content-center">
+    <div class="col-8 v3d">
+        <Viewer @ref="View3D1" ViewerSettings=@settings Scene=scene  />
+    </div>
+</div>
+<br/>
+<p><button class="btn btn-primary" @onclick="OnLoadGltfButtonClick">Load Model</button> </p>
+
+@code {
+    private Viewer View3D1 = null!;
+    private Guid objGuid;
+    private Guid loadedObjectGuid = Guid.NewGuid();
+
+
+    private Camera camera = new OrthographicCamera(left: -2, right: 2, top: 2, bottom: -2, zoom: 0.5f, near: -10)
+        {
+            Position = new Vector3(1, 1, 1),
+            AnimateRotationSettings = new AnimateRotationSettings(true, 0.1, 0, 0.1, radius: 3)
+            {
+                StopAnimationOnOrbitControlMove = true
+            },
+            LookAt = new Vector3(0.5f, 0, 0)
+        };
+
+
+    private ViewerSettings settings = new ViewerSettings()
+        {
+            ShowViewHelper=true,
+            SelectedColor="green"
+        };
+
+    private Scene scene = new Scene();
+
+    protected override Task OnInitializedAsync()
+    {
+        AddLights();
+        FillScene(); 
+        return base.OnInitializedAsync();
+    }
+
+    private void FillScene()
+    {
+
+        scene.Add(new AxesHelper(100));
+    }
+
+
+    private void AddLights()
+    {
+        scene.Add(new AmbientLight());
+        scene.Add(new PointLight()
+            {
+                Intensity = 0.5f,
+                Position = new Vector3(0, 200, 100)
+            });
+        scene.Add(new PointLight()
+            {
+                Intensity = 1f,
+                Position = new Vector3(5, 5, 5)
+            });
+    }
+
+
+
+    private async Task OnLoadGltfButtonClick()
+    {
+        var settings = new ImportSettings
+            {
+                Format = Import3DFormats.Gltf,
+                FileURL = "models/textures/object11.glb"
+            };
+        loadedObjectGuid = await View3D1.Import3DModelAsync(settings);
+        await View3D1.SetCameraPositionAsync(new Vector3(0, 1, 5), new Vector3(0, 0.5f, 0));
+    }
+
+}

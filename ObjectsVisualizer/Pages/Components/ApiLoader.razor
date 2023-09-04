@@ -1,0 +1,55 @@
+﻿@page "/Components/getModel"
+@inject Services.SpinnerService spinner;
+
+@using Pages.Components;
+@using System.Threading.Tasks;
+@using System.Text;
+@using Microsoft.Extensions.Configuration;
+
+@inject IConfiguration config
+@inject IJSRuntime JSRuntime
+
+<h3>Api Loader</h3>
+<br/>
+<button class="btn btn-primary" @onclick="sendRequest">Load Model</button>
+<br/>
+<br/>
+<DisplayModelJS data=@model></DisplayModelJS>
+<p>@result</p>
+
+
+@code {
+    private string imgSrc;
+    private string result;
+    private byte[] model;
+
+    HttpClient http = new HttpClient();
+    string folder = "glbs/000-023";
+    string file = "c786b97d08b94d02a1fa3b87d2e86cf1.glb";
+
+    private async Task sendRequest()
+    {   
+        string uri = config["azure-container"] + "/" + folder + "/" + file + "?" + config["azure-sas"];
+        try
+        {
+            var response = await http.GetAsync(uri);
+            if (response.IsSuccessStatusCode)
+            {
+                var data = await response.Content.ReadAsByteArrayAsync();
+                model = data;
+                result = "success";
+            }
+            else
+            {
+                result = "failed";
+                throw new HttpRequestException("HTTP request failed");
+            }
+        }
+        catch(Exception ex)
+        {
+            result = "failed";
+            Console.WriteLine($"error : {ex.Message}");
+        }
+       
+    }
+}

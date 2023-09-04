@@ -1,0 +1,34 @@
+﻿
+    
+    <div class="spinner disp">
+        <div class="spinner-border text-primary" role="status">
+        </div>
+   
+    </div>
+
+    <style>
+        .spinner {
+        position: absolute;
+        top: 62.5%;
+        left: 48.5%;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+    }
+    </style>
+
+    @if (dis == true)
+    {
+       <style>
+           .disp{
+               display:none;
+           }
+       </style>
+    }
+
+
+@code{
+    [Parameter]
+    public bool dis { get; set; }
+    }
+
+

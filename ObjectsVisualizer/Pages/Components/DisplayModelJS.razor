@@ -1,0 +1,46 @@
+﻿@page "/Components/DisplayModelJS";
+@inject IJSRuntime JsRuntime
+@inject Services.SpinnerService spinner
+@using System.Text;
+<br/>
+<div style="background-color:blue ; height: 400px ; width : 700px">
+<canvas id="three1">
+</canvas>
+    @if (spinner.isVisible == true)
+    {
+        <Spinner dis=false />
+    }
+</div>
+<h1>@model</h1>
+<br />
+
+@code {
+    [Parameter]
+    public byte[] data { get; set; }
+    public string model;
+
+    protected override void OnParametersSet()
+    {
+        call(data);
+    }
+
+    String convertByteArrayToString(byte[] data)
+    {
+        if (data == null)
+        {
+            Console.Write("nothing");
+            return null;
+        }
+        String model = Encoding.UTF8.GetString(data);
+        Console.Write(model);
+        return model;
+    }
+
+    public async Task call(byte[] data)
+    {
+        string id  = "three";
+        await JsRuntime.InvokeVoidAsync("displayModel",data);
+        
+        StateHasChanged();
+    }
+}
