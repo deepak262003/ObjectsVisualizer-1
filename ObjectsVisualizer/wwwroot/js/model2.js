@@ -26,7 +26,7 @@ async function displayModel(modelUrl) {
 
             renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true, canvas: canvas });
             renderer.setPixelRatio(window.devicePixelRatio);
-            renderer.setSize(700,400);
+            renderer.setSize(500,300);
             renderer.toneMapping = THREE.ACESFilmicToneMapping;
             renderer.toneMappingExposure = 1;
 

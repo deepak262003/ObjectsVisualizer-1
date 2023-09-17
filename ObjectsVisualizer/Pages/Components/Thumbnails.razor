@@ -1,0 +1,27 @@
+﻿@inject IConfiguration config;
+@inject IFilePath _FilePath;
+
+<ImageLoad id="@id" srcPath="@image" LoadModel="@LoadButtonClickedT" />
+
+@code {
+    private string image;
+
+    [Parameter]
+    [EditorRequired]
+    public string id{ get; set; }
+
+    [Parameter]
+    public EventCallback LoadModelT { get; set; }
+
+    protected override void OnInitialized()
+    {
+        string imageId = id + ".jpeg";
+        image = config["azure-container"] + "/" + _FilePath.GetImageDir() + "/" + imageId + "?" + config["azure-sas"];
+    }
+
+    public void LoadButtonClickedT()
+    {
+        _FilePath.SetFile(id);
+        LoadModelT.InvokeAsync();
+    }
+}

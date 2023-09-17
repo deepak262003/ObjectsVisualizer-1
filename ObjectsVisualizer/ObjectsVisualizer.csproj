@@ -22,6 +22,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Pages\Components\ImageLoad.razor.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Pages\Components\ImageLoad.razor.css" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Blazor3D" Version="0.1.40" />
 	<PackageReference Include="Azure.Storage.Blobs" Version="12.18.0-beta.1" />
   </ItemGroup>

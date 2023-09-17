@@ -1,5 +1,7 @@
 ﻿@page "/Components/getModel"
 @inject Services.SpinnerService spinner;
+@inject IFilePath _FilePath;
+@inject Callbacks _Callbacks;
 
 @using Pages.Components;
 @using System.Threading.Tasks;
@@ -9,27 +11,45 @@
 @inject IConfiguration config
 @inject IJSRuntime JSRuntime
 
-<h3>Api Loader</h3>
-<br/>
-<button class="btn btn-primary" @onclick="sendRequest">Load Model</button>
-<br/>
-<br/>
-<DisplayModelJS data=@model></DisplayModelJS>
+<h3>@_FilePath.GetModel()</h3>
+<button class="btn btn-primary" @onclick="@processRequest">Load Model</button>
+
+    <DisplayModelJS data=@model></DisplayModelJS>
+    @if (models==null || models.Count == 0)
+    {
+    <SurveyPrompt Title="Oops... No models found.." />
+    }
+    else{
+    @foreach (KeyValuePair<string,string> model in models){
+    string id = model.Key;
+    string directory = model.Value;
+    <div class="container">
+            <div class="featured-product">
+    <Thumbnails id="@id" LoadModelT="@processRequest"/>
+            </div>
+    </div>
+    }
+    }
 <p>@result</p>
+<br/>
+<br/>
 
 
 @code {
+
+    [Parameter]
+    public Dictionary <string , string>? models { get; set; }
     private string imgSrc;
     private string result;
     private byte[] model;
+    private string uri;
 
     HttpClient http = new HttpClient();
-    string folder = "glbs/000-023";
-    string file = "c786b97d08b94d02a1fa3b87d2e86cf1.glb";
 
-    private async Task sendRequest()
-    {   
-        string uri = config["azure-container"] + "/" + folder + "/" + file + "?" + config["azure-sas"];
+    public  async Task processRequest()
+    {
+        uri = config["azure-container"] + "/" + _FilePath.GetModelDir() + "/" + _FilePath.GetModel() + "?" + config["azure-sas"];
+
         try
         {
             var response = await http.GetAsync(uri);
@@ -45,11 +65,10 @@
                 throw new HttpRequestException("HTTP request failed");
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             result = "failed";
             Console.WriteLine($"error : {ex.Message}");
-        }
-       
+        } 
     }
 }

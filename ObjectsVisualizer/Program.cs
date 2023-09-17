@@ -1,8 +1,10 @@
+global using ObjectsVisualizer.Services.FilePath;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Configuration;
 using ObjectsVisualizer.Data;
 using ObjectsVisualizer.Services;
+using ObjectsVisualizer.Services.Callbacks;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddScoped<SpinnerService>();
+builder.Services.AddScoped<IFilePath, FilePath>();
+builder.Services.AddScoped<Callbacks>();
 builder.Configuration.AddJsonFile("Configurations/config.api.json");
 builder.Configuration.AddJsonFile("Configurations/config.blob.json");
 builder.Configuration.AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true);

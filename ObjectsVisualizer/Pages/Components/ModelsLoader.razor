@@ -1,0 +1,19 @@
+﻿@page "/Components/ModelsLoader";
+
+<ApiLoader models="@models"/>
+
+@code {
+    private Dictionary<string, string> models = new Dictionary<string, string>();
+
+    protected override void OnInitialized()
+    {
+        models.Add("98d28c2babb24e1284a9e812b6e4921f", "000-023");
+        models.Add("99257e9b3b1443bd91a22d61bfeb7182", "000-023");
+        models.Add("9cddd7e967b7423483b63b74eae287e8", "000-023");
+        models.Add("9cf3eaf2604b45998cc8d89a8665aff4", "000-023");
+        models.Add("9e26bddd716541e8a0dc4c52d62027bf", "000-023");
+        models.Add("a0c216a7de774aba903f441d7899aa02", "000-023");
+    }
+}
+
+

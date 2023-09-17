@@ -1,0 +1,28 @@
+﻿@inject IFilePath _FilePath;
+@page "/Components/load";     
+            
+                <div class="image-container">
+                    <div class="image-overlay">
+                       <a class="button" @onclick="LoadButtonClicked">Select Model</a>
+                    </div>
+                    <img src="@srcPath">
+                </div>
+
+
+@code {
+
+    [Parameter]
+    public EventCallback LoadModel { get; set; }
+
+    [Parameter]
+    public string srcPath { get; set; }
+
+    [Parameter]
+    public string id{ get; set; }
+
+    public void LoadButtonClicked(){
+        _FilePath.SetFile(id);
+        LoadModel.InvokeAsync();
+    }
+
+}
