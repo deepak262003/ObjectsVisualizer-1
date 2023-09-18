@@ -1,0 +1,10 @@
+﻿.model-wrap {
+    margin: 10px;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    width: fit-content;
+    background-color:white;
+}
+

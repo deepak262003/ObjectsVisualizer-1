@@ -40,7 +40,7 @@ async function displayModel(modelUrl) {
             scene = new THREE.Scene();
             const axesHelper = new THREE.AxesHelper(100);
             scene.add(axesHelper);
-            scene.background = new THREE.Color(0xE8E8E8);
+            scene.background = new THREE.Color("darkslategrey");
             scene.environment = pmremGenerator.fromScene(environment).texture;
 
             const grid = new THREE.GridHelper(500, 10, 0xffffff, 0xffffff);

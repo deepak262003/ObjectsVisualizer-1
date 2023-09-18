@@ -11,25 +11,30 @@
 @inject IConfiguration config
 @inject IJSRuntime JSRuntime
 
-<h3>@_FilePath.GetModel()</h3>
-<button class="btn btn-primary" @onclick="@processRequest">Load Model</button> 
-
+@* <button class="btn btn-primary" @onclick="@processRequest">Load Model</button>  *@
+    <div class="page-wrap">
     <DisplayModelJS data=@model></DisplayModelJS>
+   
     @if (models==null || models.Count == 0)
     {
     <SurveyPrompt Title="Oops... No models found.." />
     }
     else{
+    <div class="container parent-con">
+            <div class="row gx-3">
     @foreach (KeyValuePair<string,string> model in models){
     string id = model.Key;
     string directory = model.Value;
-    <div class="container">
-            <div class="featured-product">
-    <Thumbnails id="@id" LoadModelT="@processRequest"/>
+            <div class="col-md-3 mt-3">
+            <div class="image-wrap">
+            <Thumbnails id="@id" LoadModelT="@processRequest" dir="@directory"/> 
             </div>
+            </div>
+    }
+        </div>
     </div>
     }
-    }
+    </div>
  <p>@result</p> 
 <br/>
 <br/>
@@ -39,10 +44,10 @@
 
     [Parameter]
     public Dictionary <string , string>? models { get; set; }
-    private string imgSrc;
-    private string result;
-    private byte[] model;
-    private string uri;
+    private string? imgSrc;
+    private string? result;
+    private byte[]? model;
+    private string? uri;
 
     HttpClient http = new HttpClient();
 

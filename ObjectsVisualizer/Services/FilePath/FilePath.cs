@@ -39,7 +39,7 @@
 
         public void SetModelDir(string folder)
         {
-            _modelDir = folder;
+            _modelDir = "glbs/"+folder;
         }
 
     }

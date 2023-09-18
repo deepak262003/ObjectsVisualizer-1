@@ -20,8 +20,12 @@
     [Parameter]
     public string id{ get; set; }
 
+    [Parameter]
+    public string dir{ get; set; }
+
     public void LoadButtonClicked(){
         _FilePath.SetFile(id);
+        _FilePath.SetModelDir(dir);
         LoadModel.InvokeAsync();
     }
 

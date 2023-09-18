@@ -1,17 +1,26 @@
-﻿.container {
-    display: flex;
-    flex-direction: row;
-    overflow-x: auto;
-    justify-content: center;
+﻿.page-wrap {
+    background-color: cadetblue;
+    border-radius: 10px;
+    padding: 5px;
 }
 
-.featured-product {
+.image-wrap{
     margin: 10px;
     text-align: center;
     padding: 10px;
     border: 1px solid lightgray;
     border-radius: 10px;
-    max-width: fit-content;
+    width: fit-content;
+    background-color:white;
+}
+
+.parent-con {
+    background-color: darkslategrey;
+    width: fit-content;
+    padding: 3px;
+    text-align: center;
+    border-radius: 10px;
+    margin-top:10px;
 }
 
 @media (max-width: 1023.98px) {

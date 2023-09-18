@@ -7,6 +7,7 @@
         String GetModel();
         String GetImage();
         Task SetFile(string file);
+        void SetModelDir(String modelDir);
 
     }
 }

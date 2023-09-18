@@ -1,7 +1,7 @@
 ﻿@inject IConfiguration config;
 @inject IFilePath _FilePath;
 
-<ImageLoad id="@id" srcPath="@image" LoadModel="@LoadButtonClickedT" />
+<ImageLoad id="@id" srcPath="@image" LoadModel="@LoadButtonClickedT" dir="@dir"/>
 
 @code {
     private string image;
@@ -12,6 +12,9 @@
 
     [Parameter]
     public EventCallback LoadModelT { get; set; }
+
+    [Parameter]
+    public string dir{ get; set; }
 
     protected override void OnInitialized()
     {
