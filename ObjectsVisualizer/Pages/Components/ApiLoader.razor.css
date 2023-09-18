@@ -1,5 +1,5 @@
 ﻿.page-wrap {
-    background-color: cadetblue;
+    background-image: linear-gradient(to bottom right,black,cadetblue,black,cadetblue,grey,black);
     border-radius: 10px;
     padding: 5px;
 }
@@ -13,14 +13,17 @@
     width: fit-content;
     background-color:white;
 }
+.image-wrap:hover{
+    background-color:dodgerblue;
+}
 
 .parent-con {
-    background-color: darkslategrey;
+    backdrop-filter: blur(8px);
     width: fit-content;
     padding: 3px;
     text-align: center;
     border-radius: 10px;
-    margin-top:10px;
+    margin-top: 10px;
 }
 
 @media (max-width: 1023.98px) {
